@@ -16,9 +16,10 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by daniel on 21.01.15.

@@ -1,4 +1,4 @@
-package de.uniulm.omi.executionware.agent;
+package de.uniulm.omi.cloudiator.visor.client;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

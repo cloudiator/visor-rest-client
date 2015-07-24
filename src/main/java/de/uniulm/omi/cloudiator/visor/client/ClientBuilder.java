@@ -16,11 +16,12 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent;
+package de.uniulm.omi.cloudiator.visor.client;
 
-import de.uniulm.omi.executionware.agent.entities.internal.Credential;
-import de.uniulm.omi.executionware.agent.entities.internal.Entity;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import de.uniulm.omi.cloudiator.visor.client.entities.internal.Credential;
+import de.uniulm.omi.cloudiator.visor.client.entities.internal.Entity;
+
 import org.glassfish.jersey.filter.LoggingFilter;
 
 import javax.ws.rs.client.Client;

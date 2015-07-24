@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

@@ -16,9 +16,9 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
 
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import javax.annotation.Nullable;
 import javax.ws.rs.client.ClientBuilder;

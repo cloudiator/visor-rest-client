@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 University of Ulm
+ * Copyright (c) 2014-2015 University of Ulm
  *
  * See the NOTICE file distributed with this work for additional information
  * regarding copyright ownership.  Licensed under the Apache License, Version 2.0 (the
@@ -16,37 +16,40 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
+package de.uniulm.omi.cloudiator.visor.client.entities;
 
 /**
- * Created by daniel on 21.01.15.
+ * Created by frank on 10.02.15.
  */
-public class Link {
+public class Interval {
 
-    private String href;
-    private String rel;
+    private String timeUnit;
 
-    public Link() {
+    private long period;
+
+    Interval() {
     }
 
-    public Link(String href, String rel) {
-        this.href = href;
-        this.rel = rel;
+    Interval(long period, String timeUnit) {
+        this.period = period;
+        this.timeUnit = timeUnit;
     }
 
-    public String getHref() {
-        return href;
+    public String getTimeUnit() {
+        return timeUnit;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    @SuppressWarnings("UnusedDeclaration")
+    public void setTimeUnit(String timeUnit) {
+        this.timeUnit = timeUnit;
     }
 
-    public String getRel() {
-        return rel;
+    public long getPeriod() {
+        return period;
     }
 
-    public void setRel(String rel) {
-        this.rel = rel;
+    @SuppressWarnings("UnusedDeclaration")
+    public void setPeriod(long period) {
+        this.period = period;
     }
 }

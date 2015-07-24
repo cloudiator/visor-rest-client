@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 University of Ulm
+ * Copyright (c) 2014-2015 University of Ulm
  *
  * See the NOTICE file distributed with this work for additional information
  * regarding copyright ownership.  Licensed under the Apache License, Version 2.0 (the
@@ -16,16 +16,38 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
+package de.uniulm.omi.cloudiator.visor.client.entities;
 
 /**
  * Created by frank on 10.02.15.
  */
-public interface Entity {
+public class Context {
+    private String key;
+    private String value;
 
-    @JsonIgnore
-    public String getId();
+    @SuppressWarnings("UnusedDeclaration")
+    Context() {
+    }
 
+    Context(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

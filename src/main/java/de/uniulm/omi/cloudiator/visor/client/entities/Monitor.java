@@ -16,14 +16,13 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities;
+package de.uniulm.omi.cloudiator.visor.client.entities;
 
-import de.uniulm.omi.executionware.agent.entities.internal.AbstractEntity;
-import de.uniulm.omi.executionware.agent.entities.internal.Path;
+import de.uniulm.omi.cloudiator.visor.client.entities.internal.AbstractEntity;
+import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**

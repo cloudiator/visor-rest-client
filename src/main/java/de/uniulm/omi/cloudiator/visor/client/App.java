@@ -16,9 +16,9 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent;
+package de.uniulm.omi.cloudiator.visor.client;
 
-import de.uniulm.omi.executionware.agent.entities.Monitor;
+import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
 
 import java.util.concurrent.TimeUnit;
 

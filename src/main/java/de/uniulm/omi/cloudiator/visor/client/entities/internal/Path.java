@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2015 University of Ulm
+ * Copyright (c) 2015 University of Ulm
  *
  * See the NOTICE file distributed with this work for additional information
  * regarding copyright ownership.  Licensed under the Apache License, Version 2.0 (the
@@ -16,38 +16,18 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities;
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Created by frank on 10.02.15.
+ * Created by daniel on 21.01.15.
  */
-public class Context {
-    private String key;
-    private String value;
-
-    @SuppressWarnings("UnusedDeclaration")
-    Context() {
-    }
-
-    Context(String key, String value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Path {
+    String value();
 }

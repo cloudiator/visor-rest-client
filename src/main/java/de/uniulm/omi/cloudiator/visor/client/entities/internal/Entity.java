@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2015 University of Ulm
+ * Copyright (c) 2015 University of Ulm
  *
  * See the NOTICE file distributed with this work for additional information
  * regarding copyright ownership.  Licensed under the Apache License, Version 2.0 (the
@@ -16,40 +16,17 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities;
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by frank on 10.02.15.
  */
-public class Interval {
+public interface Entity {
 
-    private String timeUnit;
+    @JsonIgnore
+    public String getId();
 
-    private long period;
-
-    Interval() {
-    }
-
-    Interval(long period, String timeUnit) {
-        this.period = period;
-        this.timeUnit = timeUnit;
-    }
-
-    public String getTimeUnit() {
-        return timeUnit;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public void setTimeUnit(String timeUnit) {
-        this.timeUnit = timeUnit;
-    }
-
-    public long getPeriod() {
-        return period;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public void setPeriod(long period) {
-        this.period = period;
-    }
 }

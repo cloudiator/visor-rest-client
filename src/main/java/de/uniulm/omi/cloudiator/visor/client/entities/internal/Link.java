@@ -16,17 +16,37 @@
  * under the License.
  */
 
-package de.uniulm.omi.executionware.agent.entities.internal;
-
+package de.uniulm.omi.cloudiator.visor.client.entities.internal;
 
 /**
- * Created by frank on 10.02.15.
+ * Created by daniel on 21.01.15.
  */
-public abstract class AbstractEntity implements Entity {
-    /*
-    *
-    *   Intend for abstraction. Not used at the moment,
-    *   due to lack of abstracted features.
-    *
-     */
+public class Link {
+
+    private String href;
+    private String rel;
+
+    public Link() {
+    }
+
+    public Link(String href, String rel) {
+        this.href = href;
+        this.rel = rel;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getRel() {
+        return rel;
+    }
+
+    public void setRel(String rel) {
+        this.rel = rel;
+    }
 }
