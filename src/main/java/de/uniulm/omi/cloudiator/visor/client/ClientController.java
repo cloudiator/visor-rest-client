@@ -83,7 +83,7 @@ public class ClientController<T extends Entity> {
     }
 
     public T update(T t) {
-        return this.getRequest(t.getId()).put(javax.ws.rs.client.Entity.entity(t, MediaType.APPLICATION_JSON_TYPE)).readEntity(type);
+        return this.getRequest(this.baseUrl + "/" + this.type.getAnnotation(Path.class).value() + "/" + t.getId()).put(javax.ws.rs.client.Entity.entity(t, MediaType.APPLICATION_JSON_TYPE)).readEntity(type);
     }
 
     public void delete(T t) {

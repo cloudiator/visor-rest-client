@@ -25,6 +25,7 @@ import de.uniulm.omi.cloudiator.visor.client.entities.internal.Entity;
 import org.glassfish.jersey.filter.LoggingFilter;
 
 import javax.ws.rs.client.Client;
+import java.util.logging.Logger;
 
 /**
  * Created by frank on 10.02.15.
@@ -52,7 +53,8 @@ public class ClientBuilder {
     }
 
     public <T extends Entity> ClientController<T> build(Class<T> clazz) {
-        final Client client = javax.ws.rs.client.ClientBuilder.newBuilder().register(JacksonJsonProvider.class).register(LoggingFilter.class)/*.register(new AuthenticationFilter(this.credentials, this.url))*/.build();
+        final Client client = javax.ws.rs.client.ClientBuilder.newBuilder().register(
+            JacksonJsonProvider.class).register(new LoggingFilter(Logger.getGlobal(),true))/*.register(new AuthenticationFilter(this.credentials, this.url))*/.build();
         return new ClientController<>(client, this.url, clazz);
     }
 

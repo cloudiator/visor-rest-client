@@ -19,14 +19,47 @@
 package de.uniulm.omi.cloudiator.visor.client.entities.internal;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.annotation.Nullable;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Created by frank on 10.02.15.
  */
 public abstract class AbstractEntity implements Entity {
-    /*
-    *
-    *   Intend for abstraction. Not used at the moment,
-    *   due to lack of abstracted features.
-    *
-     */
+    @JsonIgnore @Nullable private List<Link> links;
+
+    public AbstractEntity() {
+    }
+
+    public AbstractEntity(@Nullable List<Link> links) {
+        this.links = links;
+    }
+
+    @JsonIgnore @Nullable public List<Link> getLinks() {
+        return links;
+    }
+
+    @JsonProperty public void setLinks(@Nullable List<Link> links) {
+        this.links = links;
+    }
+
+    @Override public String getSelfLink() {
+        checkNotNull(this.links);
+        for (Link link : this.links) {
+            if (link.getRel().equals("self")) {
+                return link.getHref();
+            }
+        }
+        throw new IllegalStateException("self link not present in entity");
+    }
+
+    @Override public String getId() {
+        String selfLink = this.getSelfLink();
+        return selfLink.substring(selfLink.lastIndexOf('/') + 1);
+    }
 }

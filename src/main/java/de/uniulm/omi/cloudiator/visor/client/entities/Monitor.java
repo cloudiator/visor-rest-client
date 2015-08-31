@@ -19,8 +19,10 @@
 package de.uniulm.omi.cloudiator.visor.client.entities;
 
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.AbstractEntity;
+import de.uniulm.omi.cloudiator.visor.client.entities.internal.Link;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,7 +45,21 @@ public class Monitor extends AbstractEntity {
     Monitor() {
     }
 
+    @SuppressWarnings("UnusedDeclaration")
+    Monitor(@Nullable List<Link> links) {
+        super(links);
+    }
+
     Monitor(String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+        //super(link);
+        this.metricName = metricName;
+        this.sensorClassName = sensorClassName;
+        this.interval = interval;
+        this.contexts = contexts;
+    }
+
+    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+        super(links);
         this.metricName = metricName;
         this.sensorClassName = sensorClassName;
         this.interval = interval;
@@ -86,11 +102,6 @@ public class Monitor extends AbstractEntity {
 
     public static MonitorBuilder builder() {
         return new MonitorBuilder();
-    }
-
-    @Override
-    public String getId() {
-        return this.getMetricName();
     }
 
     public static class MonitorBuilder {

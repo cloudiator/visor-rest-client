@@ -30,7 +30,7 @@ public class Interval {
     Interval() {
     }
 
-    Interval(long period, String timeUnit) {
+    public Interval(long period, String timeUnit) {
         this.period = period;
         this.timeUnit = timeUnit;
     }

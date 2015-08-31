@@ -29,7 +29,7 @@ public class Context {
     Context() {
     }
 
-    Context(String key, String value) {
+    public Context(String key, String value) {
         this.key = key;
         this.value = value;
     }

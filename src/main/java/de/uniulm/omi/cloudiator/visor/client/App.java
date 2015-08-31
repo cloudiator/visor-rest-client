@@ -34,19 +34,28 @@ public class App
         final ClientController<Monitor> controller =
                 ClientBuilder.getNew()
                         // the base url
-                        .url("http://134.60.30.109:9002")
+                        .url("http://134.60.64.49:31415")
                                 // the entity to get the controller for.
                         .build(Monitor.class);
 
-        Monitor coolMonitor = Monitor.builder().sensorClassName("de.uniulm.omi.executionware.agent.monitoring.sensors.MemoryUsageSensor").metricName("memory_usage").interval(1, TimeUnit.SECONDS).build();
+        Monitor coolMonitor = Monitor.builder().sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.MemoryUsageSensor").metricName("memory_usage").interval(1, TimeUnit.SECONDS).build();
 
 
         //create a new Monitor
-        controller.delete(coolMonitor);
+        coolMonitor = controller.create(coolMonitor);
+
+
+        // update a monitor
+        coolMonitor.getInterval().setPeriod(22);
+        controller.update(coolMonitor);
 
         Thread.sleep(20000);
 
-        //create a new Monitor
-        controller.create(coolMonitor);
+        //get all monitor
+        for (Monitor m : controller.getList()){
+            //delete a Monitor
+            controller.delete(m);
+        }
+
     }
 }
