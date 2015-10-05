@@ -24,15 +24,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.uniulm.omi.cloudiator</groupId>
-        <artifactId>cloudiator-pom</artifactId>
-        <version>0.1.8-RELEASE</version>
+        <groupId>io.github.cloudiator</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>visor-rest-client</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>visor-rest-client</name>
-    <url>http://maven.apache.org</url>
+    <description>A Java client for the RESTful API of visor.
+    </description>
+    <url>https://github.com/cloudiator</url>
+
+    <scm>
+        <connection>scm:git@github.com:cloudiator/visor-rest-client.git</connection>
+        <developerConnection>scm:git@github.com:cloudiator/visor-rest-client.git
+        </developerConnection>
+        <url>git@github.com:cloudiator/visor-rest-client.git</url>
+    </scm>
 
 
     <dependencies>
