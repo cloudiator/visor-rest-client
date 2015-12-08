@@ -38,11 +38,11 @@
     <parent>
         <groupId>io.github.cloudiator</groupId>
         <artifactId>project</artifactId>
-        <version>0.1.0</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
     <artifactId>visor-rest-client</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.0</version>
+    <version>0.2.0-SNAPSHOT</version>
     <name>visor-rest-client</name>
     <description>A Java client for the RESTful API of visor.
     </description>
@@ -53,7 +53,7 @@
         <developerConnection>scm:git:git@github.com:cloudiator/visor-rest-client.git
         </developerConnection>
         <url>https://github.com/cloudiator/visor-rest-client/</url>
-        <tag>visor-rest-client-0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
