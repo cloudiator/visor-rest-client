@@ -26,9 +26,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public interface Entity {
     @JsonIgnore
-    public String getSelfLink();
+    String getSelfLink();
 
     @JsonIgnore
-    public String getId();
+    String getId();
 
 }

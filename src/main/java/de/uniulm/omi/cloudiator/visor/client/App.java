@@ -19,6 +19,7 @@
 package de.uniulm.omi.cloudiator.visor.client;
 
 import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
+import de.uniulm.omi.cloudiator.visor.client.entities.SensorMonitor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,15 +35,18 @@ public class App
         final ClientController<Monitor> controller =
                 ClientBuilder.getNew()
                         // the base url
-                        .url("http://134.60.64.49:31415")
+                        .url("http://localhost:31415")
                                 // the entity to get the controller for.
                         .build(Monitor.class);
 
-        Monitor coolMonitor = Monitor.builder().sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.MemoryUsageSensor").metricName("memory_usage").interval(1, TimeUnit.SECONDS).build();
+        SensorMonitor coolMonitor = SensorMonitor.builder()
+                .sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.MemoryUsageSensor")
+                .metricName("memory_usage")
+                .interval(1, TimeUnit.SECONDS).build();
 
 
         //create a new Monitor
-        coolMonitor = controller.create(coolMonitor);
+        coolMonitor = (SensorMonitor)controller.create(coolMonitor);
 
 
         // update a monitor

@@ -18,28 +18,28 @@
 
 package de.uniulm.omi.cloudiator.visor.client.entities;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.AbstractEntity;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Link;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 /**
  * Created by frank on 10.02.15.
  */
 @Path("monitors")
-public class Monitor extends AbstractEntity {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({@JsonSubTypes.Type(value = PushMonitor.class, name = "push"),
+        @JsonSubTypes.Type(value = SensorMonitor.class, name = "sensor")})
+public abstract class Monitor extends AbstractEntity {
 
     private String metricName;
-
-    private String sensorClassName;
-
-    private Interval interval;
-
-    private List<Context> contexts;
+    private String componentId;
+    private Map<String, String> monitorContext;
 
     @SuppressWarnings("UnusedDeclaration")
     Monitor() {
@@ -50,20 +50,15 @@ public class Monitor extends AbstractEntity {
         super(links);
     }
 
-    Monitor(String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
-        //super(link);
-        this.metricName = metricName;
-        this.sensorClassName = sensorClassName;
-        this.interval = interval;
-        this.contexts = contexts;
-    }
-
-    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+    Monitor(@Nullable List<Link> links, String metricName, String componentId, Map<String, String> monitorContext) {
         super(links);
         this.metricName = metricName;
-        this.sensorClassName = sensorClassName;
-        this.interval = interval;
-        this.contexts = contexts;
+        this.componentId = componentId;
+        this.monitorContext = monitorContext;
+    }
+
+    Monitor(String metricName, String componentId, Map<String, String> monitorContext) {
+        this(null, metricName, componentId, monitorContext);
     }
 
     public String getMetricName() {
@@ -74,80 +69,19 @@ public class Monitor extends AbstractEntity {
         this.metricName = metricName;
     }
 
-    public String getSensorClassName() {
-        return sensorClassName;
+    public Map<String, String> getMonitorContext() {
+        return monitorContext;
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public void setSensorClassName(String sensorClassName) {
-        this.sensorClassName = sensorClassName;
+    public void setMonitorContext(Map<String, String> monitorContext) {
+        this.monitorContext = monitorContext;
     }
 
-    public Interval getInterval() {
-        return interval;
+    public String getComponentId() {
+        return componentId;
     }
 
-    public void setInterval(Interval interval) {
-        this.interval = interval;
+    public void setComponentId(String componentId) {
+        this.componentId = componentId;
     }
-
-    public List<Context> getContexts() {
-        return contexts;
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public void setContexts(List<Context> contexts) {
-        this.contexts = contexts;
-    }
-
-    public static MonitorBuilder builder() {
-        return new MonitorBuilder();
-    }
-
-    public static class MonitorBuilder {
-
-        private String metricName;
-        private String sensorClassName;
-        private long period;
-        private String timeUnit;
-        private List<Context> contexts;
-
-        public MonitorBuilder() {
-            this.contexts = new ArrayList<>();
-        }
-
-        public MonitorBuilder metricName(final String metricName) {
-            this.metricName = metricName;
-            return this;
-        }
-
-        public MonitorBuilder sensorClassName(final String sensorClassName) {
-            this.sensorClassName = sensorClassName;
-            return this;
-        }
-
-        public MonitorBuilder interval(final long period, final TimeUnit timeUnit) {
-            this.period = period;
-            this.timeUnit = timeUnit.toString();
-            return this;
-        }
-
-        public MonitorBuilder addContext(final String key, final String value) {
-            //noinspection Convert2streamapi
-            this.contexts.add(new Context(key, value));
-            return this;
-        }
-
-        public MonitorBuilder addContexts(final List<Context> contexts) {
-            //noinspection Convert2streamapi
-            this.contexts = contexts;
-            return this;
-        }
-
-        public Monitor build() {
-            return new Monitor(metricName, sensorClassName, new Interval(period, timeUnit), contexts);
-        }
-
-    }
-
 }
