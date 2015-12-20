@@ -41,6 +41,8 @@ public class Monitor extends AbstractEntity {
 
     private List<Context> contexts;
 
+    private String sensorSourceUri;
+
     @SuppressWarnings("UnusedDeclaration")
     Monitor() {
     }
@@ -51,19 +53,20 @@ public class Monitor extends AbstractEntity {
     }
 
     Monitor(String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
-        //super(link);
+        this(null, metricName, sensorClassName, interval, contexts);
+    }
+
+    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+        this(links);
         this.metricName = metricName;
         this.sensorClassName = sensorClassName;
         this.interval = interval;
         this.contexts = contexts;
     }
 
-    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
-        super(links);
-        this.metricName = metricName;
-        this.sensorClassName = sensorClassName;
-        this.interval = interval;
-        this.contexts = contexts;
+    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts, String sensorSourceUri) {
+        this(links, metricName, sensorClassName, interval, contexts);
+        this.sensorSourceUri = sensorSourceUri;
     }
 
     public String getMetricName() {
@@ -100,6 +103,14 @@ public class Monitor extends AbstractEntity {
         this.contexts = contexts;
     }
 
+    public String getSensorSourceUri() {
+        return sensorSourceUri;
+    }
+
+    public void setSensorSourceUri(String sensorSourceUri) {
+        this.sensorSourceUri = sensorSourceUri;
+    }
+
     public static MonitorBuilder builder() {
         return new MonitorBuilder();
     }
@@ -111,6 +122,7 @@ public class Monitor extends AbstractEntity {
         private long period;
         private String timeUnit;
         private List<Context> contexts;
+        private String sensorSourceUri;
 
         public MonitorBuilder() {
             this.contexts = new ArrayList<>();
@@ -144,8 +156,13 @@ public class Monitor extends AbstractEntity {
             return this;
         }
 
+        public MonitorBuilder sensorSourceUri(String sensorSourceUri){
+            this.sensorSourceUri = sensorSourceUri;
+            return this;
+        }
+
         public Monitor build() {
-            return new Monitor(metricName, sensorClassName, new Interval(period, timeUnit), contexts);
+            return new Monitor(null, metricName, sensorClassName, new Interval(period, timeUnit), contexts, sensorSourceUri);
         }
 
     }
