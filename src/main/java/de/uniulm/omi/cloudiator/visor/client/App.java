@@ -34,11 +34,16 @@ public class App
         final ClientController<Monitor> controller =
                 ClientBuilder.getNew()
                         // the base url
-                        .url("http://134.60.64.49:31415")
+                        .url("http://localhost:31415")
                                 // the entity to get the controller for.
                         .build(Monitor.class);
 
-        Monitor coolMonitor = Monitor.builder().sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.MemoryUsageSensor").metricName("memory_usage").interval(1, TimeUnit.SECONDS).build();
+        Monitor coolMonitor = Monitor.builder()
+                .sensorClassName("myprobe.MyProbe")
+                .metricName("memory_usage")
+                .interval(1, TimeUnit.SECONDS)
+                .sensorSourceUri("https://omi-gitlab.e-technik.uni-ulm.de/jdomasch/loadjars/raw/master/export/myprobe.jar")
+                .build();
 
 
         //create a new Monitor
