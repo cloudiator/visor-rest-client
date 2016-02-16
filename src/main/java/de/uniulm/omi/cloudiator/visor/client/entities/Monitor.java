@@ -18,14 +18,13 @@
 
 package de.uniulm.omi.cloudiator.visor.client.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import de.uniulm.omi.cloudiator.visor.client.entities.internal.AbstractEntity;
-import de.uniulm.omi.cloudiator.visor.client.entities.internal.Link;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
-import javax.annotation.Nullable;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.Map;
 
 /**
@@ -35,30 +34,23 @@ import java.util.Map;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({@JsonSubTypes.Type(value = PushMonitor.class, name = "push"),
         @JsonSubTypes.Type(value = SensorMonitor.class, name = "sensor")})
-public abstract class Monitor extends AbstractEntity {
+public abstract class Monitor {
 
+    private String uuid;
+    @NotNull
     private String metricName;
-    private String componentId;
+    @NotNull private String componentId;
     private Map<String, String> monitorContext;
 
     @SuppressWarnings("UnusedDeclaration")
     Monitor() {
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    Monitor(@Nullable List<Link> links) {
-        super(links);
-    }
-
-    Monitor(@Nullable List<Link> links, String metricName, String componentId, Map<String, String> monitorContext) {
-        super(links);
+    Monitor(String uuid, String metricName, String componentId, Map<String, String> monitorContext) {
+        this.uuid = uuid;
         this.metricName = metricName;
         this.componentId = componentId;
         this.monitorContext = monitorContext;
-    }
-
-    Monitor(String metricName, String componentId, Map<String, String> monitorContext) {
-        this(null, metricName, componentId, monitorContext);
     }
 
     public String getMetricName() {
@@ -83,5 +75,13 @@ public abstract class Monitor extends AbstractEntity {
 
     public void setComponentId(String componentId) {
         this.componentId = componentId;
+    }
+
+    @JsonIgnore public String getUuid() {
+        return uuid;
+    }
+
+    @JsonProperty("uuid") public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

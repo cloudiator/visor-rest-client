@@ -20,38 +20,31 @@ package de.uniulm.omi.cloudiator.visor.client.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import de.uniulm.omi.cloudiator.visor.client.entities.internal.Link;
 
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Frank on 10.12.2015.
  */
 public class SensorMonitor extends Monitor {
 
-    private String sensorClassName;
-    //TODO: @JsonSerialize(as = DefaultInterval.class) @JsonDeserialize(as = DefaultInterval.class)
+    @NotNull private String sensorClassName;
+    @NotNull @JsonSerialize(as = Interval.class) @JsonDeserialize(as = Interval.class)
     private Interval interval;
+    private Map<String, String> sensorConfiguration;
 
     @SuppressWarnings("UnusedDeclaration")
     SensorMonitor() {
     }
 
-    SensorMonitor(@Nullable List<Link> links, String metricName,
+    SensorMonitor(String uuid, String metricName,
             String componentId, Map<String, String> monitorContext,
             String sensorClassName, Interval interval) {
-        super(links, metricName, componentId, monitorContext);
+        super(uuid, metricName, componentId, monitorContext);
         this.sensorClassName = sensorClassName;
         this.interval = interval;
-    }
-
-    SensorMonitor(String metricName, String componentId, Map<String, String> monitorContext,
-                  String sensorClassName, Interval interval) {
-        this(null, metricName, componentId, monitorContext, sensorClassName, interval);
     }
 
     public String getSensorClassName() {
@@ -71,60 +64,14 @@ public class SensorMonitor extends Monitor {
         this.interval = interval;
     }
 
-    public static SensorMonitorBuilder builder() {
-        return new SensorMonitorBuilder();
+    public Map<String, String> getSensorConfiguration() {
+        if (sensorConfiguration == null) {
+            return Collections.emptyMap();
+        }
+        return sensorConfiguration;
     }
 
-    public static class SensorMonitorBuilder {
-
-        private String metricName;
-        private String componentId;
-        private Map<String, String> monitorContext = new HashMap<>();
-        private String sensorClassName;
-        private long period;
-        private String timeUnit;
-
-        public SensorMonitorBuilder() {
-            //
-        }
-
-        public SensorMonitorBuilder metricName(final String metricName) {
-            this.metricName = metricName;
-            return this;
-        }
-
-        public SensorMonitorBuilder sensorClassName(final String sensorClassName) {
-            this.sensorClassName = sensorClassName;
-            return this;
-        }
-
-        public SensorMonitorBuilder interval(final long period, final TimeUnit timeUnit) {
-            this.period = period;
-            this.timeUnit = timeUnit.toString();
-            return this;
-        }
-
-        public SensorMonitorBuilder addMonitorContext(final String key, final String value) {
-            //noinspection Convert2streamapi
-            this.monitorContext.put(key, value);
-            return this;
-        }
-
-        public SensorMonitorBuilder monitorContext(Map<String, String> monitorContext) {
-            //noinspection Convert2streamapi
-            this.monitorContext = monitorContext;
-            return this;
-        }
-
-        public SensorMonitorBuilder componentId(String componentId) {
-            //noinspection Convert2streamapi
-            this.componentId = componentId;
-            return this;
-        }
-
-        public SensorMonitor build() {
-            return new SensorMonitor(metricName, componentId, monitorContext, sensorClassName, new Interval(period, timeUnit));
-        }
-
+    public void setSensorConfiguration(Map<String, String> sensorConfiguration) {
+        this.sensorConfiguration = sensorConfiguration;
     }
 }

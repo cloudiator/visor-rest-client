@@ -18,11 +18,6 @@
 
 package de.uniulm.omi.cloudiator.visor.client.entities;
 
-import de.uniulm.omi.cloudiator.visor.client.entities.internal.Link;
-
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,16 +30,11 @@ public class PushMonitor extends Monitor {
     PushMonitor() {
     }
 
-    PushMonitor(@Nullable List<Link> links, String metricName,
+    PushMonitor(String uuid, String metricName,
                   String componentId, Map<String, String> monitorContext,
                   Integer port) {
-        super(links, metricName, componentId, monitorContext);
+        super(uuid, metricName, componentId, monitorContext);
         this.port = port;
-    }
-
-    PushMonitor(String metricName, String componentId, Map<String, String> monitorContext,
-                Integer port) {
-        this(null, metricName, componentId, monitorContext, port);
     }
 
     public Integer getPort() {
@@ -55,52 +45,4 @@ public class PushMonitor extends Monitor {
         this.port = port;
     }
 
-    public static PushMonitorBuilder builder() {
-        return new PushMonitorBuilder();
-    }
-
-    public static class PushMonitorBuilder {
-
-        private String metricName;
-        private String componentId;
-        private Map<String, String> monitorContext = new HashMap<>();
-        private Integer port;
-
-        public PushMonitorBuilder() {
-            //
-        }
-
-        public PushMonitorBuilder metricName(final String metricName) {
-            this.metricName = metricName;
-            return this;
-        }
-
-        public PushMonitorBuilder port(final Integer port) {
-            this.port = port;
-            return this;
-        }
-
-        public PushMonitorBuilder addMonitorContext(final String key, final String value) {
-            //noinspection Convert2streamapi
-            this.monitorContext.put(key, value);
-            return this;
-        }
-
-        public PushMonitorBuilder monitorContext(Map<String, String> monitorContext) {
-            //noinspection Convert2streamapi
-            this.monitorContext = monitorContext;
-            return this;
-        }
-
-        public PushMonitorBuilder componentId(String componentId) {
-            //noinspection Convert2streamapi
-            this.componentId = componentId;
-            return this;
-        }
-
-        public PushMonitor build() {
-            return new PushMonitor(metricName, componentId, monitorContext, port);
-        }
-
-    }
 }

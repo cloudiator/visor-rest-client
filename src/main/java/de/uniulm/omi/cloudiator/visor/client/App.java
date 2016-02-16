@@ -20,6 +20,7 @@ package de.uniulm.omi.cloudiator.visor.client;
 
 import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
 import de.uniulm.omi.cloudiator.visor.client.entities.SensorMonitor;
+import de.uniulm.omi.cloudiator.visor.client.entities.SensorMonitorBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,11 +40,17 @@ public class App
                                 // the entity to get the controller for.
                         .build(Monitor.class);
 
-        SensorMonitor coolMonitor = SensorMonitor.builder()
-                .sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.MemoryUsageSensor")
+        SensorMonitor coolMonitor = (new SensorMonitorBuilder())
+                .sensorClassName("de.uniulm.omi.cloudiator.visor.sensors.SystemMemoryUsageSensor")
                 .metricName("memory_usage")
+                .componentId("5")
+                .addMonitorContext("test", "testvalu")
                 .interval(1, TimeUnit.SECONDS).build();
 
+        //get all monitor
+        for (Monitor m : controller.getList()){
+            System.out.println(m.getMetricName());
+        }
 
         //create a new Monitor
         coolMonitor = (SensorMonitor)controller.create(coolMonitor);
