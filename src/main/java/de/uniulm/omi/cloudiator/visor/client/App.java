@@ -19,7 +19,9 @@
 package de.uniulm.omi.cloudiator.visor.client;
 
 import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
+import de.uniulm.omi.cloudiator.visor.client.entities.Server;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,13 +30,13 @@ import java.util.concurrent.TimeUnit;
 public class App 
 {
     public static void main( String[] args ) throws InterruptedException {
-        //An example
+        //An example for a simple Memory Usage Sensor
 
-        //get the controller for the cloud entity
-        final ClientController<Monitor> controller =
+        //get the controller for the monitor entity
+        final ClientController<Monitor> monitorController =
                 ClientBuilder.getNew()
                         // the base url
-                        .url("http://134.60.64.49:31415")
+                        .url("http://127.0.0.1:31415")
                                 // the entity to get the controller for.
                         .build(Monitor.class);
 
@@ -42,20 +44,43 @@ public class App
 
 
         //create a new Monitor
-        coolMonitor = controller.create(coolMonitor);
+        coolMonitor = monitorController.create(coolMonitor);
 
 
         // update a monitor
         coolMonitor.getInterval().setPeriod(22);
-        controller.update(coolMonitor);
+        monitorController.update(coolMonitor);
 
         Thread.sleep(20000);
 
         //get all monitor
-        for (Monitor m : controller.getList()){
+        for (Monitor m : monitorController.getList()){
             //delete a Monitor
-            controller.delete(m);
+            monitorController.delete(m);
         }
 
+
+
+
+
+        //An example for a simple Telnet server listening to port 12366
+        int port = 12366;
+
+
+        //get the controller for the (telnet) server entity
+        final ClientController<Server> serverController =
+                ClientBuilder.getNew()
+                        // the base url
+                        .url("http://127.0.0.1:31415")
+                                // the entity to get the controller for.
+                        .build(Server.class);
+
+        HashMap<String, String> serverContext = new HashMap<>();
+        serverContext.put("key1", "value1");
+
+        Server coolServer = Server.builder().port(port).monitorContext(serverContext).build();
+
+        // create the server
+        coolServer = serverController.create(coolServer);
     }
 }

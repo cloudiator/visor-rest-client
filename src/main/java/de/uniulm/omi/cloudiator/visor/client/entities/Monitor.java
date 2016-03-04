@@ -24,7 +24,9 @@ import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,7 +41,7 @@ public class Monitor extends AbstractEntity {
 
     private Interval interval;
 
-    private List<Context> contexts;
+    private Map<String, String> monitorContext;
 
     @SuppressWarnings("UnusedDeclaration")
     Monitor() {
@@ -50,20 +52,20 @@ public class Monitor extends AbstractEntity {
         super(links);
     }
 
-    Monitor(String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+    Monitor(String metricName, String sensorClassName, Interval interval, Map<String, String> monitorContext) {
         //super(link);
         this.metricName = metricName;
         this.sensorClassName = sensorClassName;
         this.interval = interval;
-        this.contexts = contexts;
+        this.monitorContext = monitorContext;
     }
 
-    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, List<Context> contexts) {
+    Monitor(@Nullable List<Link> links, String metricName, String sensorClassName, Interval interval, Map<String, String> monitorContext) {
         super(links);
         this.metricName = metricName;
         this.sensorClassName = sensorClassName;
         this.interval = interval;
-        this.contexts = contexts;
+        this.monitorContext = monitorContext;
     }
 
     public String getMetricName() {
@@ -91,13 +93,13 @@ public class Monitor extends AbstractEntity {
         this.interval = interval;
     }
 
-    public List<Context> getContexts() {
-        return contexts;
+    public Map<String, String> getMonitorContext() {
+        return monitorContext;
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    public void setContexts(List<Context> contexts) {
-        this.contexts = contexts;
+    public void setMonitorContext(Map<String, String> monitorContext) {
+        this.monitorContext = monitorContext;
     }
 
     public static MonitorBuilder builder() {
@@ -110,10 +112,10 @@ public class Monitor extends AbstractEntity {
         private String sensorClassName;
         private long period;
         private String timeUnit;
-        private List<Context> contexts;
+        private Map<String, String> monitorContext;
 
         public MonitorBuilder() {
-            this.contexts = new ArrayList<>();
+            this.monitorContext = new HashMap<>();
         }
 
         public MonitorBuilder metricName(final String metricName) {
@@ -132,20 +134,20 @@ public class Monitor extends AbstractEntity {
             return this;
         }
 
-        public MonitorBuilder addContext(final String key, final String value) {
+        public MonitorBuilder addMonitorContext(final String key, final String value) {
             //noinspection Convert2streamapi
-            this.contexts.add(new Context(key, value));
+            this.monitorContext.put(key, value);
             return this;
         }
 
-        public MonitorBuilder addContexts(final List<Context> contexts) {
+        public MonitorBuilder addMonitorContext(final Map<String, String> monitorContext) {
             //noinspection Convert2streamapi
-            this.contexts = contexts;
+            this.monitorContext = monitorContext;
             return this;
         }
 
         public Monitor build() {
-            return new Monitor(metricName, sensorClassName, new Interval(period, timeUnit), contexts);
+            return new Monitor(metricName, sensorClassName, new Interval(period, timeUnit), monitorContext);
         }
 
     }
