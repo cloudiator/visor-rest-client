@@ -18,6 +18,7 @@
 
 package de.uniulm.omi.cloudiator.visor.client;
 
+import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Entity;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Path;
 
@@ -34,7 +35,7 @@ import static com.google.common.base.Preconditions.*;
 /**
  * Created by frank on 10.02.15.
  */
-public class ClientController<T extends Entity> {
+public class ClientController<T extends Monitor> {
 
     private final Class<T> type;
     private final Client client;
@@ -83,11 +84,11 @@ public class ClientController<T extends Entity> {
     }
 
     public T update(T t) {
-        return this.getRequest(this.baseUrl + "/" + this.type.getAnnotation(Path.class).value() + "/" + t.getId()).put(javax.ws.rs.client.Entity.entity(t, MediaType.APPLICATION_JSON_TYPE)).readEntity(type);
+        return this.getRequest(this.baseUrl + "/" + this.type.getAnnotation(Path.class).value() + "/" + t.getUuid()).put(javax.ws.rs.client.Entity.entity(t, MediaType.APPLICATION_JSON_TYPE)).readEntity(type);
     }
 
     public void delete(T t) {
-        this.getRequest(this.baseUrl + "/" + this.type.getAnnotation(Path.class).value() + "/" + t.getId()).delete();
+        this.getRequest(this.baseUrl + "/" + this.type.getAnnotation(Path.class).value() + "/" + t.getUuid()).delete();
     }
 
 

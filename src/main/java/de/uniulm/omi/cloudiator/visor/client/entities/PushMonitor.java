@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 University of Ulm
+ * Copyright (c) 2014-2015 University of Ulm
  *
  * See the NOTICE file distributed with this work for additional information
  * regarding copyright ownership.  Licensed under the Apache License, Version 2.0 (the
@@ -16,19 +16,33 @@
  * under the License.
  */
 
-package de.uniulm.omi.cloudiator.visor.client.entities.internal;
+package de.uniulm.omi.cloudiator.visor.client.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Map;
 
 /**
- * Created by frank on 10.02.15.
+ * Created by Frank on 10.12.2015.
  */
-public interface Entity {
-    @JsonIgnore
-    String getSelfLink();
+public class PushMonitor extends Monitor {
+    private Integer port;
 
-    @JsonIgnore
-    String getId();
+    @SuppressWarnings("UnusedDeclaration")
+    PushMonitor() {
+    }
+
+    PushMonitor(String uuid, String metricName,
+                  String componentId, Map<String, String> monitorContext,
+                  Integer port) {
+        super(uuid, metricName, componentId, monitorContext);
+        this.port = port;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
 
 }

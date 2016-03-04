@@ -19,6 +19,7 @@
 package de.uniulm.omi.cloudiator.visor.client;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Credential;
 import de.uniulm.omi.cloudiator.visor.client.entities.internal.Entity;
 
@@ -52,7 +53,7 @@ public class ClientBuilder {
         return this;
     }
 
-    public <T extends Entity> ClientController<T> build(Class<T> clazz) {
+    public <T extends Monitor> ClientController<T> build(Class<T> clazz) {
         final Client client = javax.ws.rs.client.ClientBuilder.newBuilder().register(
             JacksonJsonProvider.class).register(new LoggingFilter(Logger.getGlobal(),true))/*.register(new AuthenticationFilter(this.credentials, this.url))*/.build();
         return new ClientController<>(client, this.url, clazz);
