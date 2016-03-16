@@ -41,10 +41,12 @@ public class SensorMonitor extends Monitor {
 
     SensorMonitor(String uuid, String metricName,
             String componentId, Map<String, String> monitorContext,
-            String sensorClassName, Interval interval) {
+            String sensorClassName, Interval interval,
+            Map<String, String> sensorConfiguration) {
         super(uuid, metricName, componentId, monitorContext);
         this.sensorClassName = sensorClassName;
         this.interval = interval;
+        this.sensorConfiguration = sensorConfiguration;
     }
 
     public String getSensorClassName() {

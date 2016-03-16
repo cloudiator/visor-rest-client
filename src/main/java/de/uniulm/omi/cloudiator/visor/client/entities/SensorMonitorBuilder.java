@@ -16,6 +16,7 @@ public class SensorMonitorBuilder {
     private String sensorClassName;
     private long period;
     private String timeUnit;
+    private Map<String, String> sensorConfiguration = new HashMap<>();
 
     public SensorMonitorBuilder() {
         //
@@ -59,7 +60,19 @@ public class SensorMonitorBuilder {
         return this;
     }
 
+    public SensorMonitorBuilder addSensorConfiguration(final String key, final String value) {
+        //noinspection Convert2streamapi
+        this.sensorConfiguration.put(key, value);
+        return this;
+    }
+
+    public SensorMonitorBuilder sensorConfiguration(Map<String, String> sensorConfiguration) {
+        //noinspection Convert2streamapi
+        this.sensorConfiguration = sensorConfiguration;
+        return this;
+    }
+
     public SensorMonitor build() {
-        return new SensorMonitor(uuid, metricName, componentId, monitorContext, sensorClassName, new Interval(period, timeUnit));
+        return new SensorMonitor(uuid, metricName, componentId, monitorContext, sensorClassName, new Interval(period, timeUnit), sensorConfiguration);
     }
 }
