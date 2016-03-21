@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -41,10 +42,12 @@ public class SensorMonitor extends Monitor {
 
     SensorMonitor(String uuid, String metricName,
             String componentId, Map<String, String> monitorContext,
-            String sensorClassName, Interval interval) {
+            String sensorClassName, Interval interval,
+            Map<String, String> sensorConfiguration) {
         super(uuid, metricName, componentId, monitorContext);
         this.sensorClassName = sensorClassName;
         this.interval = interval;
+        this.sensorConfiguration = sensorConfiguration;
     }
 
     public String getSensorClassName() {
@@ -66,7 +69,7 @@ public class SensorMonitor extends Monitor {
 
     public Map<String, String> getSensorConfiguration() {
         if (sensorConfiguration == null) {
-            return Collections.emptyMap();
+            sensorConfiguration = new HashMap<>();
         }
         return sensorConfiguration;
     }
