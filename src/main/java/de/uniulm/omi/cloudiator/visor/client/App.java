@@ -22,6 +22,8 @@ import de.uniulm.omi.cloudiator.visor.client.entities.Monitor;
 import de.uniulm.omi.cloudiator.visor.client.entities.SensorMonitor;
 import de.uniulm.omi.cloudiator.visor.client.entities.SensorMonitorBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
